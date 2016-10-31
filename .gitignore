@@ -1,0 +1,6 @@
+/node_modules
+
+/static/*.js
+
+# Allow everyone to apply customize lint config
+.eslintrc
