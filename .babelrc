@@ -2,7 +2,6 @@
   "presets": [
     ["modern-async", {
       "promise": "bluebird",
-      "stage": 0,
       "fast-async": {
         "compiler": {
           "promises": true,
