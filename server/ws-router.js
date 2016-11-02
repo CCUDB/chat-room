@@ -25,9 +25,11 @@ const actions = {
 }
 
 router.get('/socket', (ctx) => {
-  const remove = pool.push(ctx.websocket)
+  const remove = pool.register(ctx.websocket)
+  console.log('Socket connect')
   ctx.websocket.on('message', (content) => {
     const data = JSON.parse(content)
+    console.log(`Receive ${content}`)
     if (actions[data.event]) {
       actions[data.event](ctx.websocket, data.payload)
     }
