@@ -13,10 +13,12 @@ import wsRouter from './server/ws-router'
 const app = websocketify(new Koa())
 const port = process.env.PORT || 3000
 
-webpackConfig.entry.app = [
-  ...webpackConfig.entry.app,
-  'webpack-hot-middleware/client?noInfo=false&reload=true'
-]
+if (process.env.NODE_ENV !== 'production') {
+  webpackConfig.entry.app = [
+    ...webpackConfig.entry.app,
+    'webpack-hot-middleware/client?noInfo=false&reload=true'
+  ]
+}
 
 const compiler = webpack(webpackConfig)
 
@@ -32,7 +34,9 @@ app.use(convert(devMiddleware(compiler, {
   }
 })))
 
-app.use(convert(hotMiddleware(compiler, {})))
+if (process.env.NODE_ENV !== 'production') {
+  app.use(convert(hotMiddleware(compiler, {})))
+}
 
 app.use(serve(path.join(__dirname, 'static')))
 
