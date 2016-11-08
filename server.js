@@ -7,6 +7,7 @@ import convert from 'koa-convert'
 import webpackConfig from './build/webpack.dev'
 import Koa from 'koa'
 import serve from 'koa-static'
+import Promise from 'bluebird'
 import websocketify from 'koa-websocket'
 import wsRouter from './server/ws-router'
 
@@ -27,7 +28,6 @@ app.ws.use(wsRouter.routes())
 app.use(convert(devMiddleware(compiler, {
   noInfo: false,
   quiet: false,
-  historyApiFallback: true,
   publicPath: '/',
   stats: {
     colors: true
@@ -39,6 +39,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 app.use(serve(path.join(__dirname, 'static')))
+const indexPath = path.join(__dirname, 'static', 'index.html')
+app.use(async (ctx) => {
+  ctx.body = (await Promise.fromCallback((cb) => ctx.webpack.fileSystem.readFile(indexPath, cb))).toString()
+})
 
 app.listen(port)
 console.log(`App start at ${port}`)
