@@ -8,7 +8,7 @@ export default {
   },
   render (h) {
     return (
-      <div class={style.counter} on-click={this.handleClick}>
+      <div class={ style.counter } on-click={ this.handleClick }>
         {this.$store.state.count}
       </div>
     )
