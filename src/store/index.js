@@ -4,20 +4,18 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-  count: 0
+  name: ''
 }
 
 const mutations = {
-  INCREMENT (state) {
-    state.count++
+  SET_NAME (state, payload) {
+    state.name = payload
   }
 }
 
 const actions = {
-  incrementAsync ({ commit }) {
-    setTimeout(() => {
-      commit('INCREMENT')
-    }, 200)
+  setName ({ commit }, payload) {
+    commit('SET_NAME', payload)
   }
 }
 
