@@ -6,10 +6,17 @@ const pool = new Pool()
 let id = 0
 
 const actions = {
-  register (socket) {
+  register (socket, payload) {
     socket.send(JSON.stringify({
       event: 'register',
       id
+    }))
+    pool.boardcast(JSON.stringify({
+      event: 'join',
+      payload: {
+        id,
+        name: payload
+      }
     }))
     socket.id = id
     id += 1
