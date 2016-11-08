@@ -3,13 +3,12 @@ import Pool from './websocket/Pool'
 import r from 'rethinkdb'
 const router = new Router()
 const pool = new Pool()
-//let id = 0
+// let id = 0
 
 const actions = {
-  register (socket, payload ) {
+  register (socket, payload) {
     socket.id = payload
   },
-
 
   async message (socket, payload) {
     console.log(`Socket ${socket.id} emit message: ${payload}`)
@@ -19,37 +18,30 @@ const actions = {
       message: payload
     }))
 
-	const conn = await r.connect({db:'chatroom'})
-	const result = await r.table('message').insert({
+    const conn = await r.connect({db: 'chatroom'})
+    const result = await r.table('message').insert({
 
-		"uid": socket.id,
-		"content": payload,
-	}).run(conn)
-	
-	if(result)	{
-		console.log("Insert successfully!")
-	
-	}		
-	conn.close()
+      'uid': socket.id,
+      'content': payload
+    }).run(conn)
+
+    if (result) {
+      console.log('Insert successfully!')
+    }
+    conn.close()
   },
 
+  async dump (socket, payload) {
+    const conn = await r.connect({db: 'chatroom'})
+    const all = await r.table('message').run(conn)
 
- 	async dump(socket, payload) {
-	
-	const conn = await r.connect( {db:'chatroom'}) 	
-	const all = await r.table('message').run(conn)
-
-	all.each((err ,val) =>{
-
-		if(err)	{
-			console.log(err)
-		}
-		console.log(val)
-
-	})
-
-
-	}	
+    all.each((err, val) => {
+      if (err) {
+        console.log(err)
+      }
+      console.log(val)
+    })
+  }
 }
 
 router.get('/socket', (ctx) => {
