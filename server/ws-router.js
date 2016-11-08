@@ -36,12 +36,12 @@ const actions = {
     const allmessage = await all.toArray()
 
     socket.send(JSON.stringify({
-      event:"dump",
-      payload:allmessage.map( ( message )=>{
+      event: 'dump',
+      payload: allmessage.map((message) => {
         message.id = message.uid
         message.message = message.content
         return message
-      } )
+      })
     }))
   }
 }
