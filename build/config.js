@@ -22,7 +22,8 @@ module.exports = {
       }]
     ],
     plugins: [
-      'transform-vue-jsx'
+      'transform-vue-jsx',
+      'dedent'
     ]
   },
   postcss: [
