@@ -741,9 +741,9 @@ babel-preset-latest@^6.14.0:
     babel-preset-es2016 "^6.16.0"
     babel-preset-es2017 "^6.16.0"
 
-babel-preset-modern-async@1.0.0-alpha.2:
-  version "1.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/babel-preset-modern-async/-/babel-preset-modern-async-1.0.0-alpha.2.tgz#0de841cf1d702dff29233deeba5fc6fb36eb787d"
+babel-preset-modern-async@v1.0.0-alpha.3:
+  version "1.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/babel-preset-modern-async/-/babel-preset-modern-async-1.0.0-alpha.3.tgz#46f9e8d9ff9facc01174b6e29ae173281d6be2e6"
   dependencies:
     assign-deep "^0.4.5"
     babel-plugin-transform-class-properties "^6.11.5"
