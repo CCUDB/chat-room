@@ -46,6 +46,10 @@ export default {
         event: 'register',
         payload: vm.name
       }))
+
+      event.target.send(JSON.stringify({
+        event: 'dump'
+      }))
     })
     this.socket = socket
     socket.subscribe({
@@ -56,6 +60,8 @@ export default {
             id: data.id,
             message: data.message
           })
+        } else if (data.event === 'dump') {
+          vm.$data.messages = data.payload
         }
       }
     })
