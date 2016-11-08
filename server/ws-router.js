@@ -33,13 +33,16 @@ const actions = {
   async dump (socket, payload) {
     const conn = await r.connect({db: 'chatroom'})
     const all = await r.table('message').run(conn)
+    const allmessage = await all.toArray()
 
-    all.each((err, val) => {
-      if (err) {
-        console.log(err)
-      }
-      console.log(val)
-    })
+    socket.send(JSON.stringify({
+      event:"dump",
+      payload:allmessage.map( ( message )=>{
+        message.id = message.uid
+        message.message = message.content
+        return message
+      } )
+    }))
   }
 }
 
