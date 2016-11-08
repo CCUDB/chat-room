@@ -3,7 +3,6 @@ import Pool from './websocket/Pool'
 import r from 'rethinkdb'
 const router = new Router()
 const pool = new Pool()
-// let id = 0
 
 const actions = {
   register (socket, payload) {
