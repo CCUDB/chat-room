@@ -12,7 +12,7 @@ export default {
     handleChange (event) {
       this.$data.name = event.target.value
     },
-    handleClick (event) {
+    handleSubmit (event) {
       event.preventDefault()
       this.setName(this.$data.name)
       this.$router.push('/chat')
@@ -23,8 +23,10 @@ export default {
 
     return (
       <div>
-        <input type='text' on-change={ this.handleChange } value={ name } />
-        <button on-click={ this.handleClick }> Join </button>
+        <form on-submit={ this.handleSubmit }>
+          <input type='text' on-change={ this.handleChange } value={ name } />
+          <button type='submit'> Join </button>
+        </form>
       </div>
     )
   }
