@@ -81,7 +81,7 @@ export default {
         <div>
           {
             this.$data.messages.map((msg) => (
-              <div>ID: { msg.id }, message: { msg.message }</div>
+              <div>{ msg.id }: { msg.message }</div>
             ))
           }
         </div>
