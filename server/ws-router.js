@@ -1,6 +1,7 @@
 import Router from 'koa-router'
 import Pool from './websocket/Pool'
-import r from 'rethinkdb'
+import { insertChat, dumpChat } from './adapter'
+
 const router = new Router()
 const pool = new Pool()
 
@@ -17,12 +18,7 @@ const actions = {
       message: payload
     }))
 
-    const conn = await r.connect({db: 'chatroom'})
-    const result = await r.table('message').insert({
-
-      'uid': socket.id,
-      'content': payload
-    }).run(conn)
+    const result = await insertChat(socket.id, payload)
 
     if (result) {
       console.log('Insert successfully!')
@@ -31,9 +27,7 @@ const actions = {
   },
 
   async dump (socket, payload) {
-    const conn = await r.connect({db: 'chatroom'})
-    const all = await r.table('message').run(conn)
-    const allmessage = await all.toArray()
+    const allmessage = await dumpChat()
 
     socket.send(JSON.stringify({
       event: 'dump',
