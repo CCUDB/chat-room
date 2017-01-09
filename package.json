@@ -6,6 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "NODE_ENV='production' node -r babel-register server.js",
+    "build-depency": "./build-depency.sh",
     "serve:dev": "webpack-dashboard -- node -r babel-register server.js",
     "serve:eazydb": "webpack-dashboard -- DB_ADAPTER='eazydb' node -r babel-register server.js",
     "build:dev": "node -r babel-register build/compile.js"
