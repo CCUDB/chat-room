@@ -1,0 +1,3 @@
+[submodule "eazydb"]
+	path = eazydb
+	url = https://github.com/DanSnow/EazyDB
