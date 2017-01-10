@@ -1,24 +1,30 @@
 import Router from 'koa-router'
 import Pool from './websocket/Pool'
-import { insertChat, dumpChat } from './adapter'
+import { rethinkdb , eazydb } from './adapter'
 
 const router = new Router()
 const pool = new Pool()
+const adapters = {
+  rethinkdb,
+  eazydb
+}
 
 const actions = {
-  register (socket, payload) {
-    socket.id = payload
+  register (socket, { adapter, id }) {
+    socket.id = id
+    socket.adapter = adapter
   },
 
   async message (socket, payload) {
     console.log(`Socket ${socket.id} emit message: ${payload}`)
+    const adapter = adapters[socket.adapter]
     pool.boardcast(JSON.stringify({
       event: 'message',
       id: socket.id,
       message: payload
     }))
 
-    const result = await insertChat(socket.id, payload)
+    const result = await adapter.insertChat(socket.id, payload)
 
     if (result) {
       console.log('Insert successfully!')
@@ -26,7 +32,8 @@ const actions = {
   },
 
   async dump (socket, payload) {
-    const allmessage = await dumpChat()
+    const adapter = adapters[socket.adapter]
+    const allmessage = await adapter.dumpChat()
 
     socket.send(JSON.stringify({
       event: 'dump',

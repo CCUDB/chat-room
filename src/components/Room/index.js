@@ -18,6 +18,9 @@ export default {
   props: {
     name: {
       type: String
+    },
+    adapter: {
+      type: String
     }
   },
   methods: {
@@ -44,7 +47,10 @@ export default {
     const socket = makeSocket((event) => {
       event.target.send(JSON.stringify({
         event: 'register',
-        payload: vm.name
+        payload: {
+          id: vm.name,
+          adapter: vm.adapter
+        }
       }))
 
       event.target.send(JSON.stringify({

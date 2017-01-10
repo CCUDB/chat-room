@@ -3,7 +3,10 @@ export default {
   name: 'Chat',
   render (h) {
     return (
-      <Room name={ this.$store.state.name } />
+      <div>
+        <Room name={ this.$store.state.name } adapter='rethinkdb' />
+        <Room name={ this.$store.state.name } adapter='eazydb' />
+      </div>
     )
   }
 }
