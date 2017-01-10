@@ -7,8 +7,10 @@
   "scripts": {
     "start": "NODE_ENV='production' node -r babel-register server.js",
     "build-depency": "./build-depency.sh",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix .",
     "serve:dev": "webpack-dashboard -- node -r babel-register server.js",
-    "serve:eazydb": "webpack-dashboard -- DB_ADAPTER='eazydb' node -r babel-register server.js",
+    "serve:eazydb": "webpack-dashboard -- env DB_ADAPTER='eazydb' node -r babel-register server.js",
     "build:dev": "node -r babel-register build/compile.js"
   },
   "dependencies": {
