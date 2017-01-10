@@ -4,3 +4,5 @@
 
 # Allow everyone to apply customize lint config
 .eslintrc
+
+/db
