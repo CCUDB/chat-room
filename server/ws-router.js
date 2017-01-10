@@ -23,7 +23,6 @@ const actions = {
     if (result) {
       console.log('Insert successfully!')
     }
-    conn.close()
   },
 
   async dump (socket, payload) {
