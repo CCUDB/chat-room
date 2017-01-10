@@ -10,3 +10,6 @@ cd node_modules/node-eazydb
 yarn install
 yarn run build
 
+cd ../..
+mkdir -p db
+eazydb/bin/eazydb <<< 'create {"path": "db/chat-db", "schema": [["uid", "str"], ["content", "str"]]}'
