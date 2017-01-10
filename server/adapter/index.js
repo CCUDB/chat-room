@@ -7,6 +7,6 @@ if (adapter === 'rethinkdb') {
   insertChat = require('./rethinkdb').insertChat
   dumpChat = require('./rethinkdb').dumpChat
 } else {
-  insertChat = require('./eazydb')
-  dumpChat = require('./eazydb')
+  insertChat = require('./eazydb').insertChat
+  dumpChat = require('./eazydb').dumpChat
 }
