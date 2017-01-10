@@ -14,17 +14,19 @@ const executePath = path.resolve(path.join(__dirname, '..', '..', 'eazydb', 'bin
 const dbPath = path.resolve(path.join(__dirname, '..', '..', 'db', 'chat-db'))
 
 export async function insertChat (uid, content) {
-  const db = EazyDB.open({ executePath })
+  const db = await EazyDB.open({ executePath })
   await db.use(dbPath)
-  await db.insert({ uid, content })
+  const { time } = await db.insert({ uid, content })
+  console.log(`insertChat: ${time}`)
   await db.close()
   return true
 }
 
 export async function dumpChat (uid, content) {
-  const db = EazyDB.open({ executePath })
+  const db = await EazyDB.open({ executePath })
   await db.use(dbPath)
-  const { data } = await db.dump()
+  const { data, time } = await db.dump()
+  console.log(`dumpChat: ${time}`)
   await db.close()
   return data
 }
