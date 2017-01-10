@@ -1,7 +1,7 @@
 const adapter = process.env.DB_ADAPTER || 'rethinkdb'
 
-let insertChat
-let dumpChat
+export let insertChat
+export let dumpChat
 
 if (adapter === 'rethinkdb') {
   insertChat = require('./rethinkdb').insertChat
@@ -10,6 +10,3 @@ if (adapter === 'rethinkdb') {
   insertChat = require('./eazydb')
   dumpChat = require('./eazydb')
 }
-
-export insertChat
-export dumpChat
