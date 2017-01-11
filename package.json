@@ -21,7 +21,7 @@
     "firebase": "^3.5.2",
     "koa": "next",
     "koa-convert": "^1.2.0",
-    "koa-router": "next",
+    "koa-router": "^7.1.0",
     "koa-static": "next",
     "koa-websocket": "next",
     "node-eazydb": "file:eazydb/node-eazydb",
@@ -33,7 +33,7 @@
     "vue-resource": "^1.0.3",
     "vue-router": "^2.0.1",
     "vuex": "^2.0.0",
-    "vuex-router-sync": "next",
+    "vuex-router-sync": "^4.1.0",
     "webpack-dashboard": "^0.2.0"
   },
   "devDependencies": {
