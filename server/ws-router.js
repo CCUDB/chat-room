@@ -1,6 +1,7 @@
 import Router from 'koa-router'
 import Pool from './websocket/Pool'
 import { rethinkdb , eazydb } from './adapter'
+import Fs from 'fs'
 
 const router = new Router()
 const pool = new Pool()
@@ -43,6 +44,17 @@ const actions = {
         return message
       })
     }))
+  },
+  
+  async testdata (socket, payload) {
+    Fs.readFile(`./fakerdata/${payload}`, 'utf-8', (err, data) => {
+      console.log(`get testdata success filename is ${payload}`)
+
+      socket.send(JSON.stringify({
+        event: 'testdata',
+        payload: data
+      }))
+    })
   }
 }
 
