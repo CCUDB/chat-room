@@ -1,4 +1,5 @@
 import path from 'path'
+import perfy from 'perfy'
 
 let _EazyDB
 
@@ -24,9 +25,13 @@ export async function insertChat (uid, content) {
 
 export async function dumpChat (uid, content) {
   const db = await EazyDB.open({ executePath })
+
+  perfy.start('eazydb')
   await db.use(dbPath)
   const { data, time } = await db.dump()
-  console.log(`dumpChat: ${time}`)
+  const result = perfy.end('eazydb')
+
+  console.log(`eazydb dumpChat: ${time}, perfy time: ${result.time}`)
   await db.close()
   return data
 }

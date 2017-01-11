@@ -1,4 +1,5 @@
 import observableSocket from 'observable-socket'
+import perfy from 'perfy'
 
 const makeSocket = (onOpen) => {
   const socket = new WebSocket('ws://localhost:3000/socket')
@@ -38,6 +39,11 @@ export default {
       this.message = ''
     },
     DBTest (fakerdata) {
+      this.benchmarkLen = fakerdata.length
+      this.benchmarkCur = 0
+      this.benchmarkAvg = 0
+      this.benchmarkStart = performance.now()
+
       for(let i=0; i<fakerdata.length; i++) {
         const data = JSON.stringify({
           event: 'message',
@@ -49,21 +55,21 @@ export default {
     testLight () {
       const data = JSON.stringify({
         event: 'testdata',
-        payload: '10.txt'
+        payload: '100.txt'
       })
       this.socket.next(data)
     },
     testMedium() {
       const data = JSON.stringify({
         event: 'testdata',
-        payload: '100.txt'
+        payload: '1000.txt'
       })
       this.socket.next(data)
     },
     testLarge () {
       const data = JSON.stringify({
         event: 'testdata',
-        payload: '1000.txt'
+        payload: '10000.txt'
       })
       this.socket.next(data)
     }
@@ -92,6 +98,10 @@ export default {
       next (content) {
         const data = JSON.parse(content)
         if (data.event === 'message') {
+          vm.benchmarkCur += 1
+          vm.benchmarkEnd = performance.now()
+          vm.benchmarkTotal = vm.benchmarkEnd - vm.benchmarkStart
+
           vm.$data.messages.push({
             id: data.id,
             message: data.message
@@ -122,11 +132,12 @@ export default {
 
         <div class="row">
           <div class="col s2">
-            <h5>Score:</h5>
+            <h5>Time:</h5>
           </div>
-          <div class="col s2">
+          <div class="col s4">
+            <p><b>{ this.benchmarkTotal }</b></p>
           </div>
-          <div class="col s2">
+          <div class="col s4">
           </div>
         </div>
         <div class="row">

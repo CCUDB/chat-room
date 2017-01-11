@@ -26,6 +26,7 @@
     "koa-websocket": "next",
     "node-eazydb": "file:eazydb/node-eazydb",
     "observable-socket": "^4.0.0",
+    "perfy": "^1.1.2",
     "rethinkdb": "^2.3.3",
     "rxjs": "^5.0.0-rc.1",
     "vue": "^2.0.3",
